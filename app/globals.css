@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-poppins: "Poppins", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper text-ash font-body antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-heading tracking-tightest;
+}
+
+::selection {
+  @apply bg-ash text-paper;
+}
+
+.glass {
+  @apply bg-white/60 backdrop-blur-md border border-white/40;
+}
+
+/* Signature texture: a faint woven-fabric grain, used sparingly on dark sections
+   to keep them from reading as flat corporate-gradient blocks. */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+  background-size: 140px 140px;
+}
+.grain > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Stitch divider: a dashed seam with end-knots, standing in for a literal
+   thread-and-needle detail across section breaks. */
+.stitch {
+  position: relative;
+  height: 1px;
+  background-image: repeating-linear-gradient(
+    to right,
+    currentColor 0,
+    currentColor 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  opacity: 0.35;
+}
+
+/* Shared form input style, used across auth/admin/dashboard forms so pages
+   don't need styled-jsx (which forces them into client components). */
+.input {
+  @apply w-full rounded-xl border border-ash/15 bg-white px-3.5 py-2.5 text-sm;
+}
+.input:focus {
+  outline: 2px solid #2f343a;
+  outline-offset: 1px;
+}
+.input:disabled {
+  @apply bg-cloud text-ash/50;
+}
+
+/* visible keyboard focus, kept from disappearing under custom UI */
+:focus-visible {
+  outline: 2px solid #2F343A;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

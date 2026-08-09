@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# Environment variables — never commit real secrets/credentials
+.env
+.env.local
+.env.*.local
+
+# Local JSON "database" — dev-only data, not meant to be versioned
+data/db.json
+data/categories.json
+data/users.json
+data/settings.json
+
+# Locally uploaded product images (kept out of git; demo art in
+# public/uploads/products/demo is intentionally NOT ignored, so it ships)
+public/uploads/products/*
+!public/uploads/products/demo
+
+# OS/editor cruft
+.DS_Store
+*.log
+npm-debug.log*
+
+# Vercel
+.vercel

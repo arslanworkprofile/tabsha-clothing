@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#F5F5F5"/>
+  <rect x="1" y="1" width="798" height="998" fill="none" stroke="#2F343A" stroke-opacity="0.15"/>
+  <text x="400" y="500" font-family="sans-serif" font-size="28" fill="#2F343A" text-anchor="middle" opacity="0.5">TABSHA</text>
+</svg>

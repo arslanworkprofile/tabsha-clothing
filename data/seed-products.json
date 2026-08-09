@@ -1,0 +1,421 @@
+[
+  {
+    "description": "Crafted from premium mid-weight fabric with a considered, minimal silhouette. Designed in-house for the Tabsha collection.",
+    "shortDescription": "Premium essential, tailored fit.",
+    "brand": "Tabsha",
+    "tags": [
+      "tee",
+      "essential"
+    ],
+    "colors": [
+      "Ash Grey",
+      "Black",
+      "White"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": 24,
+    "isFeatured": true,
+    "isTrending": false,
+    "isNewArrival": true,
+    "isBestSeller": true,
+    "rating": 4.5,
+    "reviewCount": 12,
+    "name": "Ash Grey Oversized Tee",
+    "slug": "ash-grey-oversized-tee",
+    "sku": "TAB-TEE-001",
+    "category": "clothing",
+    "gender": "unisex",
+    "price": 3200,
+    "images": [
+      {
+        "url": "/uploads/products/demo/ash-grey-oversized-tee-1.webp",
+        "alt": "ash-grey-oversized-tee"
+      },
+      {
+        "url": "/uploads/products/demo/ash-grey-oversized-tee-2.webp",
+        "alt": "ash-grey-oversized-tee"
+      }
+    ]
+  },
+  {
+    "description": "Crafted from premium mid-weight fabric with a considered, minimal silhouette. Designed in-house for the Tabsha collection.",
+    "shortDescription": "Premium essential, tailored fit.",
+    "brand": "Tabsha",
+    "tags": [
+      "outerwear",
+      "winter"
+    ],
+    "colors": [
+      "Ash Grey",
+      "Black",
+      "White"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": 24,
+    "isFeatured": true,
+    "isTrending": true,
+    "isNewArrival": true,
+    "isBestSeller": false,
+    "rating": 4.5,
+    "reviewCount": 12,
+    "name": "Structured Wool Overcoat",
+    "slug": "structured-wool-overcoat",
+    "sku": "TAB-COAT-002",
+    "category": "clothing",
+    "gender": "men",
+    "price": 18500,
+    "discountPrice": 15900,
+    "images": [
+      {
+        "url": "/uploads/products/demo/structured-wool-overcoat-1.webp",
+        "alt": "structured-wool-overcoat"
+      },
+      {
+        "url": "/uploads/products/demo/structured-wool-overcoat-2.webp",
+        "alt": "structured-wool-overcoat"
+      }
+    ]
+  },
+  {
+    "description": "Crafted from premium mid-weight fabric with a considered, minimal silhouette. Designed in-house for the Tabsha collection.",
+    "shortDescription": "Premium essential, tailored fit.",
+    "brand": "Tabsha",
+    "tags": [
+      "dress",
+      "evening"
+    ],
+    "colors": [
+      "Ash Grey",
+      "Black",
+      "White"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": 24,
+    "isFeatured": false,
+    "isTrending": true,
+    "isNewArrival": true,
+    "isBestSeller": false,
+    "rating": 4.5,
+    "reviewCount": 12,
+    "name": "Draped Satin Midi Dress",
+    "slug": "draped-satin-midi-dress",
+    "sku": "TAB-DRS-003",
+    "category": "clothing",
+    "gender": "women",
+    "price": 9800,
+    "images": [
+      {
+        "url": "/uploads/products/demo/draped-satin-midi-dress-1.webp",
+        "alt": "draped-satin-midi-dress"
+      },
+      {
+        "url": "/uploads/products/demo/draped-satin-midi-dress-2.webp",
+        "alt": "draped-satin-midi-dress"
+      }
+    ]
+  },
+  {
+    "description": "Crafted from premium mid-weight fabric with a considered, minimal silhouette. Designed in-house for the Tabsha collection.",
+    "shortDescription": "Premium essential, tailored fit.",
+    "brand": "Tabsha",
+    "tags": [
+      "leather",
+      "wallet"
+    ],
+    "colors": [
+      "Ash Grey",
+      "Black",
+      "White"
+    ],
+    "sizes": [],
+    "stock": 24,
+    "isFeatured": false,
+    "isTrending": false,
+    "isNewArrival": true,
+    "isBestSeller": true,
+    "rating": 4.5,
+    "reviewCount": 12,
+    "name": "Minimal Leather Card Wallet",
+    "slug": "minimal-leather-card-wallet",
+    "sku": "TAB-ACC-004",
+    "category": "accessories",
+    "gender": "unisex",
+    "price": 4200,
+    "images": [
+      {
+        "url": "/uploads/products/demo/minimal-leather-card-wallet-1.webp",
+        "alt": "minimal-leather-card-wallet"
+      },
+      {
+        "url": "/uploads/products/demo/minimal-leather-card-wallet-2.webp",
+        "alt": "minimal-leather-card-wallet"
+      }
+    ]
+  },
+  {
+    "description": "Crafted from premium mid-weight fabric with a considered, minimal silhouette. Designed in-house for the Tabsha collection.",
+    "shortDescription": "Premium essential, tailored fit.",
+    "brand": "Tabsha",
+    "tags": [
+      "trousers"
+    ],
+    "colors": [
+      "Ash Grey",
+      "Black",
+      "White"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": 24,
+    "isFeatured": false,
+    "isTrending": false,
+    "isNewArrival": true,
+    "isBestSeller": false,
+    "rating": 4.5,
+    "reviewCount": 12,
+    "name": "Relaxed Pleated Trousers",
+    "slug": "relaxed-pleated-trousers",
+    "sku": "TAB-TRS-005",
+    "category": "clothing",
+    "gender": "women",
+    "price": 7600,
+    "images": [
+      {
+        "url": "/uploads/products/demo/relaxed-pleated-trousers-1.webp",
+        "alt": "relaxed-pleated-trousers"
+      },
+      {
+        "url": "/uploads/products/demo/relaxed-pleated-trousers-2.webp",
+        "alt": "relaxed-pleated-trousers"
+      }
+    ]
+  },
+  {
+    "description": "Crafted from premium mid-weight fabric with a considered, minimal silhouette. Designed in-house for the Tabsha collection.",
+    "shortDescription": "Premium essential, tailored fit.",
+    "brand": "Tabsha",
+    "tags": [
+      "cap",
+      "headwear"
+    ],
+    "colors": [
+      "Ash Grey",
+      "Black",
+      "White"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "stock": 24,
+    "isFeatured": false,
+    "isTrending": true,
+    "isNewArrival": true,
+    "isBestSeller": false,
+    "rating": 4.5,
+    "reviewCount": 12,
+    "name": "Signature Ash Cap",
+    "slug": "signature-ash-cap",
+    "sku": "TAB-ACC-006",
+    "category": "accessories",
+    "gender": "unisex",
+    "price": 2400,
+    "images": [
+      {
+        "url": "/uploads/products/demo/signature-ash-cap-1.webp",
+        "alt": "signature-ash-cap"
+      },
+      {
+        "url": "/uploads/products/demo/signature-ash-cap-2.webp",
+        "alt": "signature-ash-cap"
+      }
+    ]
+  },
+  {
+    "description": "A handwoven Banarasi silk saree with a rich zari border and pallu, woven on traditional looms for a lustrous, heavyweight drape suited to weddings and formal occasions.",
+    "shortDescription": "Handwoven zari border, formal drape.",
+    "brand": "Tabsha",
+    "tags": [
+      "saree",
+      "ethnic",
+      "silk",
+      "wedding"
+    ],
+    "colors": [
+      "Maroon",
+      "Gold"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "stock": 24,
+    "isFeatured": true,
+    "isTrending": false,
+    "isNewArrival": true,
+    "isBestSeller": true,
+    "rating": 4.5,
+    "reviewCount": 12,
+    "name": "Banarasi Silk Saree",
+    "slug": "banarasi-silk-saree",
+    "sku": "TAB-SAR-007",
+    "category": "clothing",
+    "gender": "women",
+    "price": 24500,
+    "discountPrice": 21900,
+    "images": [
+      {
+        "url": "/uploads/products/demo/banarasi-silk-saree-1.webp",
+        "alt": "banarasi-silk-saree"
+      },
+      {
+        "url": "/uploads/products/demo/banarasi-silk-saree-2.webp",
+        "alt": "banarasi-silk-saree"
+      }
+    ]
+  },
+  {
+    "description": "A South Indian Kanjivaram silk saree in a deep emerald tone with a contrasting gold temple border, known for its density, sheen, and durability.",
+    "shortDescription": "Temple border, South Indian silk.",
+    "brand": "Tabsha",
+    "tags": [
+      "saree",
+      "ethnic",
+      "silk",
+      "kanjivaram"
+    ],
+    "colors": [
+      "Emerald",
+      "Gold"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "stock": 24,
+    "isFeatured": true,
+    "isTrending": true,
+    "isNewArrival": true,
+    "isBestSeller": false,
+    "rating": 4.5,
+    "reviewCount": 12,
+    "name": "Kanjivaram Silk Saree",
+    "slug": "kanjivaram-silk-saree",
+    "sku": "TAB-SAR-008",
+    "category": "clothing",
+    "gender": "women",
+    "price": 32000,
+    "images": [
+      {
+        "url": "/uploads/products/demo/kanjivaram-silk-saree-1.webp",
+        "alt": "kanjivaram-silk-saree"
+      },
+      {
+        "url": "/uploads/products/demo/kanjivaram-silk-saree-2.webp",
+        "alt": "kanjivaram-silk-saree"
+      }
+    ]
+  },
+  {
+    "description": "A lightweight printed chiffon saree with a soft floating drape, finished with a delicate gold-tone border — an easy daywear or festive option.",
+    "shortDescription": "Lightweight, floating chiffon drape.",
+    "brand": "Tabsha",
+    "tags": [
+      "saree",
+      "ethnic",
+      "chiffon",
+      "daywear"
+    ],
+    "colors": [
+      "Ivory",
+      "Rose"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "stock": 24,
+    "isFeatured": false,
+    "isTrending": false,
+    "isNewArrival": true,
+    "isBestSeller": false,
+    "rating": 4.5,
+    "reviewCount": 12,
+    "name": "Chiffon Printed Saree",
+    "slug": "chiffon-printed-saree",
+    "sku": "TAB-SAR-009",
+    "category": "clothing",
+    "gender": "women",
+    "price": 6800,
+    "images": [
+      {
+        "url": "/uploads/products/demo/chiffon-printed-saree-1.webp",
+        "alt": "chiffon-printed-saree"
+      },
+      {
+        "url": "/uploads/products/demo/chiffon-printed-saree-2.webp",
+        "alt": "chiffon-printed-saree"
+      }
+    ]
+  },
+  {
+    "description": "A wine-toned georgette saree with a copper-accented border, cut for movement and shine — built for evening events and celebrations.",
+    "shortDescription": "Fluid georgette, copper-toned border.",
+    "brand": "Tabsha",
+    "tags": [
+      "saree",
+      "ethnic",
+      "georgette",
+      "party"
+    ],
+    "colors": [
+      "Wine",
+      "Copper"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "stock": 24,
+    "isFeatured": false,
+    "isTrending": true,
+    "isNewArrival": true,
+    "isBestSeller": false,
+    "rating": 4.5,
+    "reviewCount": 12,
+    "name": "Georgette Party Saree",
+    "slug": "georgette-party-saree",
+    "sku": "TAB-SAR-010",
+    "category": "clothing",
+    "gender": "women",
+    "price": 11200,
+    "images": [
+      {
+        "url": "/uploads/products/demo/georgette-party-saree-1.webp",
+        "alt": "georgette-party-saree"
+      },
+      {
+        "url": "/uploads/products/demo/georgette-party-saree-2.webp",
+        "alt": "georgette-party-saree"
+      }
+    ]
+  }
+]
