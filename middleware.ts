@@ -9,7 +9,7 @@ const ADMIN_PAGE_PREFIX = "/admin";
 const ADMIN_LOGIN_PAGE = "/admin/login";
 const DASHBOARD_PAGE_PREFIX = "/dashboard";
 const CUSTOMER_LOGIN_PAGE = "/login";
-const PROTECTED_API_PREFIXES = ["/api/products", "/api/upload", "/api/categories", "/api/settings"];
+const PROTECTED_API_PREFIXES = ["/api/products", "/api/upload", "/api/categories", "/api/settings", "/api/users"];
 
 async function hasValidAdminSession(req: NextRequest): Promise<boolean> {
   const token = req.cookies.get(ADMIN_COOKIE_NAME)?.value;
@@ -59,5 +59,13 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/dashboard/:path*", "/api/products/:path*", "/api/upload/:path*", "/api/categories/:path*", "/api/settings/:path*"],
+  matcher: [
+    "/admin/:path*",
+    "/dashboard/:path*",
+    "/api/products/:path*",
+    "/api/upload/:path*",
+    "/api/categories/:path*",
+    "/api/settings/:path*",
+    "/api/users/:path*",
+  ],
 };

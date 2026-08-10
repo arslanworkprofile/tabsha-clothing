@@ -15,7 +15,10 @@ export async function comparePassword(password: string, hash: string): Promise<b
 }
 
 /**
- * Admin credentials are configured via env vars so no credentials live in source control.
+ * Admin roles are database-backed (see models/User.ts `role` field) — any user can be
+ * promoted to admin from Admin > Customers. These env vars only exist to *bootstrap* the
+ * very first admin on a fresh database; app/api/auth/admin-login/route.ts stops honoring
+ * them the moment any user in the database has role "admin".
  * - ADMIN_EMAIL: plain email, defaults to admin@tabsha.com for local/dev use.
  * - ADMIN_PASSWORD_HASH: a bcrypt hash (preferred). Generate one with:
  *     node -e "console.log(require('bcryptjs').hashSync('yourPassword', 10))"

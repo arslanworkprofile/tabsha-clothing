@@ -20,6 +20,7 @@ export const ADMIN_COOKIE_NAME = "tabsha_admin_token";
 export const USER_COOKIE_NAME = "tabsha_user_token";
 
 export interface AdminTokenPayload {
+  userId: string;
   email: string;
   role: "admin";
 }
@@ -48,8 +49,8 @@ export async function verifyUserToken(token: string): Promise<UserTokenPayload |
   }
 }
 
-export async function signAdminToken(email: string): Promise<string> {
-  return new SignJWT({ email, role: "admin" })
+export async function signAdminToken(userId: string, email: string): Promise<string> {
+  return new SignJWT({ userId, email, role: "admin" })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(JWT_EXPIRES_IN)

@@ -42,7 +42,7 @@ export const localUserStore = {
   findById(id: string): User | undefined {
     return readDB().users.find((u) => u._id === id);
   },
-  create(data: { name: string; email: string; passwordHash: string }): User {
+  create(data: { name: string; email: string; passwordHash: string; role?: User["role"] }): User {
     const db = readDB();
     const now = new Date().toISOString();
     const user: User = {
@@ -50,10 +50,20 @@ export const localUserStore = {
       name: data.name,
       email: data.email.toLowerCase(),
       passwordHash: data.passwordHash,
+      role: data.role ?? "customer",
       createdAt: now,
       updatedAt: now,
     };
     db.users.push(user);
+    writeDB(db);
+    return user;
+  },
+  updateRole(id: string, role: User["role"]): User | undefined {
+    const db = readDB();
+    const user = db.users.find((u) => u._id === id);
+    if (!user) return undefined;
+    user.role = role;
+    user.updatedAt = new Date().toISOString();
     writeDB(db);
     return user;
   },

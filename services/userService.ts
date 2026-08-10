@@ -21,6 +21,7 @@ export const userService = {
       return docs.map((d: any) => ({
         ...d,
         _id: d._id.toString(),
+        role: d.role ?? "customer", // .lean() skips schema defaults for older documents
         createdAt: d.createdAt?.toISOString?.() ?? d.createdAt,
         updatedAt: d.updatedAt?.toISOString?.() ?? d.updatedAt,
       })) as User[];
@@ -46,12 +47,29 @@ export const userService = {
     return localUserStore.findById(id) ?? null;
   },
 
-  async create(data: { name: string; email: string; passwordHash: string }): Promise<User> {
+  async create(data: { name: string; email: string; passwordHash: string; role?: User["role"] }): Promise<User> {
     if (isMongoConfigured()) {
       await connectDB();
       const doc = await UserModel.create({ ...data, email: data.email.toLowerCase() });
       return toPlainUser(doc);
     }
     return localUserStore.create(data);
+  },
+
+  async updateRole(id: string, role: User["role"]): Promise<User | null> {
+    if (isMongoConfigured()) {
+      await connectDB();
+      const doc = await UserModel.findByIdAndUpdate(id, { role }, { new: true });
+      return doc ? toPlainUser(doc) : null;
+    }
+    return localUserStore.updateRole(id, role) ?? null;
+  },
+
+  async countAdmins(): Promise<number> {
+    if (isMongoConfigured()) {
+      await connectDB();
+      return UserModel.countDocuments({ role: "admin" });
+    }
+    return localUserStore.list().filter((u) => u.role === "admin").length;
   },
 };
