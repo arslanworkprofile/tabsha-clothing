@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
+import type { Category } from "@/types/category";
 
 const SIZES = ["XS", "S", "M", "L", "XL", "One Size"];
 const COLORS = ["Ash Grey", "Black", "White"];
@@ -13,7 +14,7 @@ const SORTS: { value: string; label: string }[] = [
   { value: "popularity", label: "Popularity" },
 ];
 
-export default function ShopFilters() {
+export default function ShopFilters({ categories }: { categories: Category[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -68,19 +69,23 @@ export default function ShopFilters() {
 
       <div>
         <h3 className="text-sm font-semibold mb-3">Category</h3>
-        <div className="flex flex-wrap gap-2">
-          {["clothing", "accessories"].map((c) => (
-            <button
-              key={c}
-              onClick={() => setParam("category", c)}
-              className={`rounded-full border px-4 py-1.5 text-xs capitalize transition-colors ${
-                active("category", c) ? "bg-ash text-white border-ash" : "border-ash/20 hover:border-ash/50"
-              }`}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
+        {categories.length > 0 ? (
+          <div className="flex flex-wrap gap-2">
+            {categories.map((c) => (
+              <button
+                key={c._id}
+                onClick={() => setParam("category", c.slug)}
+                className={`rounded-full border px-4 py-1.5 text-xs transition-colors ${
+                  active("category", c.slug) ? "bg-ash text-white border-ash" : "border-ash/20 hover:border-ash/50"
+                }`}
+              >
+                {c.name}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <p className="text-xs text-ash/40">No categories yet.</p>
+        )}
       </div>
 
       <div>

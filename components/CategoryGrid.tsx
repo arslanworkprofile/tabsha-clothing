@@ -5,13 +5,12 @@ import type { Category } from "@/types/category";
 
 const TONES = ["from-ash-dark via-ash to-ash-light", "from-ash via-ash-light to-cloud", "from-ink via-ash-dark to-ash"];
 
-// Categories aren't linked to products by id in this app (products use a fixed
-// clothing/accessories field plus gender), so we map a few well-known slugs to the shop
-// filters that already exist. Anything else falls back to a plain /shop link.
+// Categories link to real product filtering via /shop?category=<slug> now that
+// Product.category stores a category slug directly. "men"/"women" still map to the
+// gender filter instead, since gender is tracked as its own separate product field.
 function hrefForSlug(slug: string): string {
   if (slug === "men" || slug === "women") return `/shop?gender=${slug}`;
-  if (slug === "accessories") return "/shop?category=accessories";
-  return "/shop";
+  return `/shop?category=${slug}`;
 }
 
 export default function CategoryGrid({ categories }: { categories: Category[] }) {

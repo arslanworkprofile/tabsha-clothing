@@ -8,11 +8,12 @@ import { z } from "zod";
 import axios from "axios";
 import ImageUploader from "@/components/ImageUploader";
 import type { Product } from "@/types/product";
+import type { Category } from "@/types/category";
 
 const schema = z.object({
   name: z.string().min(2, "Name is required"),
   sku: z.string().min(2, "SKU is required"),
-  category: z.enum(["clothing", "accessories"]),
+  category: z.string().min(1, "Choose a category"),
   gender: z.enum(["men", "women", "unisex"]),
   brand: z.string().optional(),
   price: z.coerce.number().positive("Price must be greater than 0"),
@@ -41,7 +42,7 @@ function fromCsv(str?: string) {
     .filter(Boolean);
 }
 
-export default function AdminProductForm({ product }: { product?: Product }) {
+export default function AdminProductForm({ product, categories }: { product?: Product; categories: Category[] }) {
   const router = useRouter();
   const [images, setImages] = useState(product?.images ?? []);
   const [submitting, setSubmitting] = useState(false);
@@ -74,7 +75,7 @@ export default function AdminProductForm({ product }: { product?: Product }) {
           isNewArrival: product.isNewArrival,
           isBestSeller: product.isBestSeller,
         }
-      : { category: "clothing", gender: "unisex", isNewArrival: true },
+      : { category: categories[0]?.slug ?? "", gender: "unisex", isNewArrival: true },
   });
 
   const onSubmit = async (values: FormValues) => {
@@ -123,10 +124,19 @@ export default function AdminProductForm({ product }: { product?: Product }) {
           <input {...register("sku")} className="input" />
         </Field>
         <Field label="Category" error={errors.category?.message}>
-          <select {...register("category")} className="input">
-            <option value="clothing">Clothing</option>
-            <option value="accessories">Accessories</option>
-          </select>
+          {categories.length > 0 ? (
+            <select {...register("category")} className="input">
+              {categories.map((c) => (
+                <option key={c._id} value={c.slug}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <p className="text-xs text-ash/50 rounded-xl border border-ash/15 px-3 py-2.5">
+              No categories yet — add one under Admin &gt; Categories first.
+            </p>
+          )}
         </Field>
         <Field label="Gender" error={errors.gender?.message}>
           <select {...register("gender")} className="input">

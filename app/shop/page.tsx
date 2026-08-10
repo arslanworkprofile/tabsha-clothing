@@ -1,7 +1,10 @@
 import ShopFilters from "@/components/ShopFilters";
 import ProductCard from "@/components/ProductCard";
 import { productService } from "@/services/productService";
+import { categoryService } from "@/services/categoryService";
 import type { ProductFilters } from "@/types/product";
+
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   searchParams: Promise<Record<string, string | undefined>>;
@@ -10,7 +13,7 @@ interface PageProps {
 export default async function ShopPage({ searchParams: searchParamsPromise }: PageProps) {
   const searchParams = await searchParamsPromise;
   const filters: ProductFilters = {
-    category: searchParams.category as ProductFilters["category"],
+    category: searchParams.category,
     gender: searchParams.gender as ProductFilters["gender"],
     size: searchParams.size,
     color: searchParams.color,
@@ -23,7 +26,7 @@ export default async function ShopPage({ searchParams: searchParamsPromise }: Pa
     limit: 12,
   };
 
-  const { items, total } = await productService.list(filters);
+  const [{ items, total }, categories] = await Promise.all([productService.list(filters), categoryService.list()]);
 
   return (
     <div className="mx-auto max-w-7xl px-5 md:px-8 py-12">
@@ -34,7 +37,7 @@ export default async function ShopPage({ searchParams: searchParamsPromise }: Pa
 
       <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-10">
         <aside className="md:sticky md:top-28 h-fit">
-          <ShopFilters />
+          <ShopFilters categories={categories} />
         </aside>
 
         <div>

@@ -1,6 +1,9 @@
 export type Gender = "men" | "women" | "unisex";
 
-export type ProductCategory = "clothing" | "accessories";
+// Category is now a real link to the Category collection (Admin > Categories), stored
+// as that category's slug — not a fixed enum. Any category you create there becomes
+// selectable here.
+export type ProductCategory = string;
 
 export interface ProductImage {
   url: string; // e.g. /uploads/products/abc123.webp

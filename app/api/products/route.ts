@@ -10,7 +10,7 @@ const productInputSchema = z.object({
   shortDescription: z.string().optional(),
   price: z.number().positive(),
   discountPrice: z.number().positive().optional(),
-  category: z.enum(["clothing", "accessories"]),
+  category: z.string().min(1, "Choose a category"),
   gender: z.enum(["men", "women", "unisex"]),
   brand: z.string().optional(),
   tags: z.array(z.string()).default([]),

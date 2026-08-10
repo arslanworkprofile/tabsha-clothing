@@ -17,7 +17,7 @@ const ProductSchema = new Schema(
     shortDescription: { type: String, default: "" },
     price: { type: Number, required: true, min: 0 },
     discountPrice: { type: Number, min: 0 },
-    category: { type: String, enum: ["clothing", "accessories"], required: true },
+    category: { type: String, required: true, index: true }, // category slug, see Category model
     gender: { type: String, enum: ["men", "women", "unisex"], required: true },
     brand: { type: String, default: "Tabsha" },
     tags: { type: [String], default: [] },
