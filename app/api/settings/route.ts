@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { settingsStore } from "@/lib/settingsStore";
+import { settingsService } from "@/services/settingsService";
 
 const schema = z.object({
   storeName: z.string().min(1),
@@ -8,10 +8,12 @@ const schema = z.object({
   currency: z.string().min(1),
   freeShippingThreshold: z.coerce.number().nonnegative(),
   standardShippingFee: z.coerce.number().nonnegative(),
+  heroImage: z.string().optional(),
 });
 
 export async function GET() {
-  return NextResponse.json({ settings: settingsStore.get() });
+  const settings = await settingsService.get();
+  return NextResponse.json({ settings });
 }
 
 export async function PUT(req: NextRequest) {
@@ -21,7 +23,7 @@ export async function PUT(req: NextRequest) {
     if (!parsed.success) {
       return NextResponse.json({ error: "Validation failed", issues: parsed.error.flatten() }, { status: 400 });
     }
-    const settings = settingsStore.update(parsed.data);
+    const settings = await settingsService.update(parsed.data);
     return NextResponse.json({ settings });
   } catch (err: any) {
     return NextResponse.json({ error: err.message ?? "Failed to update settings" }, { status: 500 });

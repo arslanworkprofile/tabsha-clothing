@@ -4,6 +4,7 @@ import ProductRail from "@/components/ProductRail";
 import Testimonials from "@/components/Testimonials";
 import { productService } from "@/services/productService";
 import { categoryService } from "@/services/categoryService";
+import { settingsService } from "@/services/settingsService";
 
 // Reads the DB directly with no dynamic API in play, so without this Next.js would
 // prerender it once at build time and freeze it — new/edited products wouldn't show up
@@ -11,12 +12,14 @@ import { categoryService } from "@/services/categoryService";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [{ items: newArrivals }, { items: trending }, { items: bestSellers }, allCategories] = await Promise.all([
-    productService.list({ sort: "newest", limit: 8 }),
-    productService.list({ sort: "popularity", limit: 8 }),
-    productService.list({ limit: 8 }),
-    categoryService.list(),
-  ]);
+  const [{ items: newArrivals }, { items: trending }, { items: bestSellers }, allCategories, settings] =
+    await Promise.all([
+      productService.list({ sort: "newest", limit: 8 }),
+      productService.list({ sort: "popularity", limit: 8 }),
+      productService.list({ limit: 8 }),
+      categoryService.list(),
+      settingsService.get(),
+    ]);
 
   // Prefer categories marked "Featured on homepage" in the admin; if none are marked
   // yet, fall back to showing whatever categories exist so the section isn't empty.
@@ -25,7 +28,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero />
+      <Hero heroImage={settings.heroImage} />
       <CategoryGrid categories={homeCategories} />
       <ProductRail title="New Arrivals" viewAllHref="/shop?sort=newest" products={newArrivals} />
       <ProductRail title="Trending Now" viewAllHref="/shop?sort=popularity" products={trending} />

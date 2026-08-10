@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-export default function Hero() {
+export default function Hero({ heroImage }: { heroImage?: string }) {
   return (
     <section className="relative overflow-hidden bg-ink text-paper grain">
       <div className="mx-auto max-w-7xl px-5 md:px-8 pt-20 pb-16 md:pt-28 md:pb-24 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-14 items-center">
@@ -70,10 +71,16 @@ export default function Hero() {
           className="relative"
         >
           <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-lift bg-gradient-to-br from-ash-light via-ash to-ink">
-            <div className="absolute inset-0 grain opacity-60" />
-            <div className="absolute inset-0 flex items-end p-8">
-              <div className="stitch w-full text-paper/70" />
-            </div>
+            {heroImage ? (
+              <Image src={heroImage} alt="" fill priority className="object-cover" sizes="(min-width: 1024px) 40vw, 90vw" />
+            ) : (
+              <>
+                <div className="absolute inset-0 grain opacity-60" />
+                <div className="absolute inset-0 flex items-end p-8">
+                  <div className="stitch w-full text-paper/70" />
+                </div>
+              </>
+            )}
           </div>
 
           <motion.div
