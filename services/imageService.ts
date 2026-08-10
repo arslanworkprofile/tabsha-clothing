@@ -42,9 +42,13 @@ export const imageService = {
   async getById(id: string): Promise<{ data: Buffer; contentType: string } | null> {
     if (!isMongoConfigured()) return null;
     await connectDB();
-    const doc = await ImageModel.findById(id).lean<{ data: Buffer; contentType: string } | null>();
+    // Deliberately NOT using .lean() here: for a Buffer-typed field, .lean() returns the
+    // MongoDB driver's raw BSON Binary wrapper instead of a plain Buffer, which breaks
+    // when handed to NextResponse. A hydrated Mongoose document casts it to a real
+    // Buffer via the schema, so we use findById() as-is instead.
+    const doc = await ImageModel.findById(id);
     if (!doc) return null;
-    return { data: Buffer.from(doc.data as any), contentType: doc.contentType };
+    return { data: doc.data as Buffer, contentType: doc.contentType };
   },
 
   async delete(id: string): Promise<boolean> {

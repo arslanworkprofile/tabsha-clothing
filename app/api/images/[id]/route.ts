@@ -9,7 +9,10 @@ type RouteContext = { params: Promise<{ id: string }> };
 export async function GET(_req: NextRequest, { params }: RouteContext) {
   const { id } = await params;
 
-  const image = await imageService.getById(id).catch(() => null);
+  const image = await imageService.getById(id).catch((err) => {
+    console.error(`Failed to load image ${id}:`, err);
+    return null;
+  });
   if (!image) {
     return new NextResponse("Not found", { status: 404 });
   }
