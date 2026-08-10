@@ -1,22 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-import fs from "fs/promises";
 import sharp from "sharp";
-import crypto from "crypto";
+import { imageService } from "@/services/imageService";
 
 // Note: the App Router's built-in req.formData() already parses multipart/form-data,
-// so Multer (designed for the Express req/res model) isn't needed here. If you later
-// add a classic Express-style API layer, Multer can front that instead.
+// so Multer (designed for the Express req/res model) isn't needed here.
+//
+// Images are stored as binary documents in MongoDB (see models/Image.ts +
+// services/imageService.ts), not on disk: Vercel's serverless functions have a
+// read-only filesystem (aside from /tmp, which doesn't persist between requests), so
+// writing to /public/uploads only ever works in local dev, never in production.
+// Each upload becomes its own Image document; the returned URL (/api/images/<id>) is
+// what gets saved onto the product/category, and app/api/images/[id]/route.ts streams
+// the bytes back out with the right content-type on request.
 
-const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads", "products");
+export const runtime = "nodejs";
+
 const MAX_FILES = 8;
 const MAX_SIZE_BYTES = 8 * 1024 * 1024; // 8MB per image before compression
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
 
 export async function POST(req: NextRequest) {
   try {
-    await fs.mkdir(UPLOAD_DIR, { recursive: true });
-
     const formData = await req.formData();
     const files = formData.getAll("images").filter((f): f is File => f instanceof File);
 
@@ -38,34 +42,21 @@ export async function POST(req: NextRequest) {
       }
 
       const buffer = Buffer.from(await file.arrayBuffer());
-      const filename = `${crypto.randomBytes(8).toString("hex")}.webp`;
-      const outputPath = path.join(UPLOAD_DIR, filename);
 
-      // Auto resize (cap longest edge at 1600px), compress, and convert to WebP.
-      await sharp(buffer)
+      // Auto resize (cap longest edge at 1600px), compress, and convert to WebP —
+      // this is also what keeps each document comfortably under MongoDB's 16MB limit.
+      const optimized = await sharp(buffer)
         .rotate() // respect EXIF orientation
         .resize({ width: 1600, height: 1600, fit: "inside", withoutEnlargement: true })
         .webp({ quality: 82 })
-        .toFile(outputPath);
+        .toBuffer();
 
-      results.push({ url: `/uploads/products/${filename}`, alt: file.name.replace(/\.[^.]+$/, "") });
+      const alt = file.name.replace(/\.[^.]+$/, "");
+      const { url } = await imageService.create(optimized, "image/webp", file.name);
+      results.push({ url, alt });
     }
 
-    return NextResponse.json(
-      {
-        images: results,
-        // Vercel (and most serverless hosts) have an ephemeral, per-instance
-        // filesystem: this write succeeds for the current request, but the
-        // file is not guaranteed to still be there on a later request once
-        // the instance recycles or a new deployment happens. The image will
-        // often keep working for a while, then quietly 404 later — flagging
-        // it here rather than letting that surprise show up in production.
-        warning: process.env.VERCEL
-          ? "Uploaded, but this file is on Vercel's temporary storage and isn't guaranteed to persist. Set up permanent storage (e.g. Vercel Blob) before relying on this in production — see README."
-          : undefined,
-      },
-      { status: 201 }
-    );
+    return NextResponse.json({ images: results }, { status: 201 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message ?? "Upload failed" }, { status: 500 });
   }
@@ -74,12 +65,23 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const { url } = await req.json();
-    if (!url || typeof url !== "string" || !url.startsWith("/uploads/products/")) {
+    if (!url || typeof url !== "string") {
       return NextResponse.json({ error: "Invalid image url" }, { status: 400 });
     }
-    const filePath = path.join(process.cwd(), "public", url);
-    await fs.unlink(filePath).catch(() => {});
-    return NextResponse.json({ success: true });
+
+    if (url.startsWith("/api/images/")) {
+      const id = url.replace("/api/images/", "");
+      await imageService.delete(id);
+      return NextResponse.json({ success: true });
+    }
+
+    if (url.startsWith("/uploads/products/")) {
+      const filename = url.replace("/uploads/products/", "");
+      await imageService.delete(filename);
+      return NextResponse.json({ success: true });
+    }
+
+    return NextResponse.json({ error: "Invalid image url" }, { status: 400 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message ?? "Delete failed" }, { status: 500 });
   }

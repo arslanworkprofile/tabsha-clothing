@@ -18,7 +18,6 @@ export default function ImageUploader({
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const [warning, setWarning] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const uploadFiles = useCallback(
@@ -41,7 +40,6 @@ export default function ImageUploader({
           },
         });
         onChange([...images, ...res.data.images]);
-        if (res.data.warning) setWarning(res.data.warning);
       } catch (err: any) {
         setError(err.response?.data?.error ?? "Upload failed. Try a smaller image or a different format.");
       } finally {
@@ -104,9 +102,6 @@ export default function ImageUploader({
       </div>
 
       {error && <p className="text-xs text-red-600 mt-2">{error}</p>}
-      {warning && (
-        <p className="text-xs text-amber-700 bg-amber-50 rounded-lg px-3 py-2 mt-2">{warning}</p>
-      )}
 
       {images.length > 0 && (
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 mt-4">

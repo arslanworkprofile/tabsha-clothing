@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // Local uploads are served from /public/uploads, no remote domains needed by default.
+    // Product/category images are served same-origin from /api/images/[id] (backed by
+    // MongoDB — see services/imageService.ts), so no remote domains are needed here.
     remotePatterns: [],
   },
   experimental: {

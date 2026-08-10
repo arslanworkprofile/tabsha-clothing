@@ -108,13 +108,15 @@ The local JSON store can appear to "work" on Vercel for a single request, then l
    ```
    This upserts by slug, so it's safe to re-run later.
 
-### 2. Image uploads won't persist (by design, for now)
+### 2. Image uploads are stored in MongoDB
 
-New images added through `/admin/products/new` after deployment will upload successfully for that request, but Vercel doesn't guarantee the file is still there on a later request — it can quietly 404 once the serverless instance recycles. The app now surfaces this directly: the image uploader shows an amber warning after any upload when running on Vercel (`process.env.VERCEL` is set automatically by Vercel — no config needed), so it's visible rather than a silent surprise later.
+Images uploaded through `/admin/products/new` (or Add Category) are compressed to WebP with `sharp`, then stored as binary documents in their own `images` collection in MongoDB — not on disk. Vercel's filesystem is read-only in production, so writing to `public/uploads` there fails outright; storing the bytes in the same database everything else already uses avoids needing a separate storage service. Each image is served back out at `/api/images/<id>` (see `app/api/images/[id]/route.ts`), and that URL is what gets saved on the product/category document.
 
-The demo catalog images (`public/uploads/products/demo/*.webp`) are unaffected — they're committed static files, not runtime uploads, so they deploy and serve normally.
+Since MongoDB caps a single document at 16MB, uploads are resized (max 1600px) and compressed before storage — comfortably under that limit for normal product photography.
 
-When you're ready for real persistent uploads, the natural fit is [Vercel Blob Storage](https://vercel.com/docs/storage/vercel-blob) — swap the `fs.writeFile` calls in `app/api/upload/route.ts` for `put()` from `@vercel/blob`, store the returned URL instead of a local path, and the rest of the app (which just stores a URL string per image) doesn't need to change.
+The demo catalog images (`public/uploads/products/demo/*.webp`) are unaffected — they're committed static files, not runtime uploads, so they deploy and serve normally regardless of MongoDB.
+
+If `MONGODB_URI` isn't set, uploads fall back to writing `public/uploads/products/` on local disk — fine for local dev, but this path never runs on a real Vercel deployment (nothing else persists there without Mongo either).
 
 ### 3. Required environment variables on Vercel
 
