@@ -5,6 +5,10 @@ import AddToCartPanel from "@/components/AddToCartPanel";
 import ProductRail from "@/components/ProductRail";
 import { productService } from "@/services/productService";
 
+// See note in app/page.tsx — reads the DB directly, so it needs force-dynamic to avoid
+// getting frozen as a build-time static snapshot (new/edited products wouldn't show up).
+export const dynamic = "force-dynamic";
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

@@ -4,6 +4,10 @@ import { categoryService } from "@/services/categoryService";
 import { userService } from "@/services/userService";
 import { formatPKR } from "@/lib/utils";
 
+// See note in categories/page.tsx — reads the DB directly with no dynamic API, so it
+// needs force-dynamic to avoid getting frozen as a build-time static snapshot.
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboard() {
   const [{ items, total }, categories, users] = await Promise.all([
     productService.list({ limit: 1000 }),

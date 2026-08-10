@@ -3,6 +3,12 @@ import Image from "next/image";
 import { categoryService } from "@/services/categoryService";
 import AdminCategoryRowActions from "@/components/AdminCategoryRowActions";
 
+// This page reads straight from the database with no dynamic API (cookies/searchParams)
+// in play, so without this Next.js will prerender it once at build time and keep serving
+// that frozen snapshot to every visitor — new categories added afterward wouldn't show
+// up. force-dynamic makes it render fresh on every request instead.
+export const dynamic = "force-dynamic";
+
 export default async function AdminCategoriesPage() {
   const categories = await categoryService.list();
 

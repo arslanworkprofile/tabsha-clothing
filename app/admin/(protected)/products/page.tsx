@@ -4,6 +4,10 @@ import { productService } from "@/services/productService";
 import { formatPKR } from "@/lib/utils";
 import AdminProductRowActions from "@/components/AdminProductRowActions";
 
+// See note in categories/page.tsx — reads the DB directly with no dynamic API, so it
+// needs force-dynamic to avoid getting frozen as a build-time static snapshot.
+export const dynamic = "force-dynamic";
+
 export default async function AdminProductsPage() {
   const { items } = await productService.list({ limit: 500 });
 

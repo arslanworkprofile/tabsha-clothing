@@ -4,6 +4,11 @@ import ProductRail from "@/components/ProductRail";
 import Testimonials from "@/components/Testimonials";
 import { productService } from "@/services/productService";
 
+// Reads the DB directly with no dynamic API in play, so without this Next.js would
+// prerender it once at build time and freeze it — new/edited products wouldn't show up
+// on the storefront until the next deploy.
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [{ items: newArrivals }, { items: trending }, { items: bestSellers }] = await Promise.all([
     productService.list({ sort: "newest", limit: 8 }),
